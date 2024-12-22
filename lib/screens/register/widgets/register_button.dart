@@ -22,22 +22,7 @@ class RegisterButton extends StatelessWidget {
             ], color: kPrimaryColor, borderRadius: BorderRadius.circular(30)),
             child: MaterialButton(
               onPressed: onPressed
-              // () async {
-              //   if (formState.currentState!.validate()) {
-              //     print("valid");
-              //   } else {
-              //     print("Not valid");
-              //   }
-              //   RegisterService().registerService(
-              //       firstName: 'farah',
-              //       lastName: 'mikari',
-              //       phoneNumber: '1234567899',
-              //       country: 'damascus',
-              //       city: 'roknAlden',
-              //       password: '20042714803',
-              //       passwordConf: '20042714803');
-
-              // },
+           
               ,
               child: Text(
                 text!,

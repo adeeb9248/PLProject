@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> formState = GlobalKey();
-  bool isLouding = false;
+  bool isLouding = false,obscureText = true;
   String? password;
 
   dynamic phoneNumber;
@@ -50,11 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: size.width,
                         height: size.height * 0.6,
                         decoration: BoxDecoration(
-                            // gradient: LinearGradient(
-                            //   colors: [kPrimaryColor, const Color(0xFFE57481),const Color.fromARGB(255, 239, 184, 184)],
-                            //   begin: Alignment.topLeft,
-                            //   end: Alignment.bottomRight,
-                            // ),
+                  
+                         
                             color: kSecondaryColor),
                       ),
                     ),
@@ -100,6 +97,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           onChanged: (data) {
                             phoneNumber = data;
                           },
+                           minimum: 10,
+                        errorText: ' phone number is less than 10 number',
+                          
                         ),
                         RegisterInfoWidget(
                           hintText: 'Password',
@@ -108,7 +108,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           onChanged: (data) {
                             password = data;
                           },
-                        ),
+                          minimum: 8,
+                        errorText: ' passowrd is less than 8 character',
+                        suffixIconEnabled: true
+                      ),
+                        
                         RegisterButton(
                           text: 'Login',
                           onPressed: () async {

@@ -23,7 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   dynamic phoneNumber;
 
-  bool isLouding = false, obscureText = true;
+  bool isLouding = false, obscureText = true,obscureTextCon =true;
 
   GlobalKey<FormState> formState = GlobalKey();
 
@@ -116,13 +116,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         errorText: ' phone number is less than 10 number',
                       ),
 
-                      // RegisterInfoWidget(
-                      //   hintText: 'Country',
-                      //   icon: const Icon(Icons.location_on),
-                      //   onChanged: (data) {
-                      //     country = data;
-                      //   },
-                      // ),
                       DropDownCountry(),
                       RegisterInfoWidget(
                         hintText: 'City',
@@ -141,15 +134,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                         minimum: 8,
                         errorText: ' passowrd is less than 8 character',
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                obscureText = !obscureText;
-                              });
-                            },
-                            icon: Icon(obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility)),
+                        suffixIconEnabled: true,
+
                       ),
 
                       RegisterInfoWidget(
@@ -161,6 +147,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                         minimum: 8,
                         errorText: ' passowrd is less than 8 character',
+                        suffixIconEnabled: true
                       ),
                       //زر التأكيد
                       RegisterButton(

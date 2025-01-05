@@ -14,7 +14,7 @@ class RegisterService {
       required String password,
       required String passwordConf}) async {
     Map<String, dynamic> data =
-        await Api().post(url: 'http://127.0.0.1:8000/api/register', body: {
+        await Api().post(url: '/register', body: {
       'first_name': firstName,
       'last_name': lastName,
       'phone_number': phoneNumber,
@@ -24,6 +24,6 @@ class RegisterService {
       'password_confirmation': password,
     });
     print(data);
-    return UserInfoModel.fromJson(data["user"]);
+    return UserInfoModel.fromJson(data);
   }
 }

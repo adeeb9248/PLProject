@@ -60,7 +60,6 @@ class _RegisterInfoWidgetState extends State<RegisterInfoWidget> {
             onChanged: widget.onChanged,
             obscureText: widget.suffixIconEnabled?_isObscured:false,
             decoration: InputDecoration(
-              
               hintStyle: TextStyle(color: Colors.grey),
               hintText: widget.hintText,
               prefixIcon: widget.icon,

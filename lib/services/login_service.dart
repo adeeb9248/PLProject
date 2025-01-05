@@ -10,7 +10,7 @@ Future<UserInfoModel> loginService(
       required String password,
       }) async {
     Map<String, dynamic> data =
-        await Api().post(url: 'http://127.0.0.1:8000/api/login', body: {
+        await Api().post(url: '/login', body: {
       
       'phone_number': phoneNumber,
       
@@ -18,7 +18,7 @@ Future<UserInfoModel> loginService(
       
     });
     print(data);
-    return UserInfoModel.fromJson(data["user"]);
+    return UserInfoModel.fromJson(data);
   }
 
 

@@ -1,11 +1,16 @@
 import 'package:delivery_app/constants.dart';
+import 'package:delivery_app/models/user_info_model.dart';
+import 'package:delivery_app/providers/userinfo_provider.dart';
+import 'package:delivery_app/screens/info_personal/info_personal_screen.dart';
 import 'package:delivery_app/screens/login/login_screen.dart';
 import 'package:delivery_app/screens/register/widgets/dropdown.dart';
 import 'package:delivery_app/screens/register/widgets/register_button.dart';
 import 'package:delivery_app/screens/register/widgets/register_info_widget.dart';
 import 'package:delivery_app/services/register_service.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
 
 String? country;
 
@@ -23,10 +28,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   dynamic phoneNumber;
 
-  bool isLouding = false, obscureText = true,obscureTextCon =true;
+  bool isLouding = false, obscureText = true, obscureTextCon = true;
 
-  GlobalKey<FormState> formState = GlobalKey();
+  // GlobalKey<FormState> formState = GlobalKey();
 
+  UserInfoModel? userInfo;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -135,20 +141,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         minimum: 8,
                         errorText: ' passowrd is less than 8 character',
                         suffixIconEnabled: true,
-
                       ),
 
                       RegisterInfoWidget(
-                        hintText: 'Confirm Password',
-                        icon: const Icon(Icons.lock),
-                        obscureText: true,
-                        onChanged: (data) {
-                          passwordConf = data;
-                        },
-                        minimum: 8,
-                        errorText: ' passowrd is less than 8 character',
-                        suffixIconEnabled: true
-                      ),
+                          hintText: 'Confirm Password',
+                          icon: const Icon(Icons.lock),
+                          obscureText: true,
+                          onChanged: (data) {
+                            passwordConf = data;
+                          },
+                          minimum: 8,
+                          errorText: ' passowrd is less than 8 character',
+                          suffixIconEnabled: true),
                       //زر التأكيد
                       RegisterButton(
                         text: 'Register',
@@ -158,11 +162,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           try {
                             await RegisterMethod(country: country);
                             print('succesful');
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('register success!'),backgroundColor: kPrimaryColor,));
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('register success!'),
+                              backgroundColor: kPrimaryColor,
+                            ));
+                            Navigator.of(context).pushNamed(
+                                InfoPersonalScreen.id,
+                                arguments: userInfo);
                           } catch (e) {
                             print(e.toString());
-                            
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Please Try Again!'),
+                              backgroundColor: Colors.red,
+                            ));
                           }
                           isLouding = false;
                           setState(() {});
@@ -180,7 +192,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<void> RegisterMethod({String? country}) async {
-    await RegisterService().registerService(
+    userInfo = await RegisterService().registerService(
         firstName: firstName!,
         lastName: lastName!,
         phoneNumber: phoneNumber,
@@ -188,6 +200,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         city: city!,
         password: password!,
         passwordConf: passwordConf!);
+    Provider.of<UserinfoProvider>(context,listen: false).userInfoModel = userInfo;
     isLouding = false;
   }
 }

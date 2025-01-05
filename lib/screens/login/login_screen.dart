@@ -1,9 +1,13 @@
 import 'package:delivery_app/constants.dart';
+import 'package:delivery_app/models/user_info_model.dart';
+import 'package:delivery_app/providers/userinfo_provider.dart';
+import 'package:delivery_app/screens/info_personal/info_personal_screen.dart';
 import 'package:delivery_app/screens/register/widgets/register_button.dart';
 import 'package:delivery_app/screens/register/widgets/register_info_widget.dart';
 import 'package:delivery_app/services/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = "Login";
@@ -15,9 +19,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> formState = GlobalKey();
-  bool isLouding = false,obscureText = true;
+  bool isLouding = false, obscureText = true;
   String? password;
-
+  UserInfoModel? userInfo;
   dynamic phoneNumber;
   @override
   Widget build(BuildContext context) {
@@ -49,10 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Container(
                         width: size.width,
                         height: size.height * 0.6,
-                        decoration: BoxDecoration(
-                  
-                         
-                            color: kSecondaryColor),
+                        decoration: BoxDecoration(color: kSecondaryColor),
                       ),
                     ),
                     Column(
@@ -97,22 +98,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           onChanged: (data) {
                             phoneNumber = data;
                           },
-                           minimum: 10,
-                        errorText: ' phone number is less than 10 number',
-                          
+                          minimum: 10,
+                          errorText: ' phone number is less than 10 number',
                         ),
                         RegisterInfoWidget(
-                          hintText: 'Password',
-                          icon: Icon(Icons.lock),
-                          obscureText: true,
-                          onChanged: (data) {
-                            password = data;
-                          },
-                          minimum: 8,
-                        errorText: ' passowrd is less than 8 character',
-                        suffixIconEnabled: true
-                      ),
-                        
+                            hintText: 'Password',
+                            icon: Icon(Icons.lock),
+                            obscureText: true,
+                            onChanged: (data) {
+                              password = data;
+                            },
+                            minimum: 8,
+                            errorText: ' passowrd is less than 8 character',
+                            suffixIconEnabled: true),
                         RegisterButton(
                           text: 'Login',
                           onPressed: () async {
@@ -121,8 +119,25 @@ class _LoginScreenState extends State<LoginScreen> {
                             try {
                               await LoginMethod();
                               print('succesful');
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text('Login success!'),
+                                backgroundColor: kPrimaryColor,
+                                // Navigator.of(context).pushNamedAndRemoveUntil(
+                                //     'Home Page', (route) => false);
+                              ));
+                              Navigator.of(context).pushNamed(
+                                  InfoPersonalScreen.id,
+                                  arguments: userInfo);
                             } catch (e) {
                               print(e.toString());
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text('Please Try Again!'),
+                                backgroundColor: Colors.red,
+                              ));
                             }
                             isLouding = false;
                             setState(() {});
@@ -141,11 +156,12 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> LoginMethod() async {
-    await LoginService().loginService(
+   userInfo = await LoginService().loginService(
       phoneNumber: phoneNumber,
       password: password!,
     );
     isLouding = false;
+     Provider.of<UserinfoProvider>(context,listen: false).userInfoModel = userInfo;
   }
 }
 

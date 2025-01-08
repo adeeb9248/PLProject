@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  String baseURL = 'http://192.168.230.239:8000/api';
+  String baseURL = 'http://192.168.77.239:8000/api';
 
   Future<dynamic> get({required String url, @required String? token}) async {
     Map<String, String> headers = {};
@@ -21,7 +21,8 @@ class Api {
     );
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> data = jsonDecode(response.body);
+      print("The code" + response.body);
+      dynamic data = jsonDecode(response.body);
       print(data);
       return data;
     } else {
@@ -48,7 +49,7 @@ class Api {
     if (response.statusCode == 200) {
       Map<String, dynamic> data = jsonDecode(response.body);
 
-      print(data["message"]);
+      //print(data["message"]);
 
       return data;
     } else {

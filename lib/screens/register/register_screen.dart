@@ -1,11 +1,14 @@
 import 'package:delivery_app/constants.dart';
 import 'package:delivery_app/models/user_info_model.dart';
 import 'package:delivery_app/providers/userinfo_provider.dart';
+import 'package:delivery_app/screens/home_screen/widgets/navigatorBar.dart';
 import 'package:delivery_app/screens/info_personal/info_personal_screen.dart';
 import 'package:delivery_app/screens/login/login_screen.dart';
 import 'package:delivery_app/screens/register/widgets/dropdown.dart';
 import 'package:delivery_app/screens/register/widgets/register_button.dart';
 import 'package:delivery_app/screens/register/widgets/register_info_widget.dart';
+import 'package:delivery_app/screens/home_screen/home_screen.dart';
+
 import 'package:delivery_app/services/register_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -166,9 +169,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               content: Text('register success!'),
                               backgroundColor: kPrimaryColor,
                             ));
-                            Navigator.of(context).pushNamed(
-                                InfoPersonalScreen.id,
-                                arguments: userInfo);
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                 Navigatorbar.id,
+                                 (route)=> false,
+                                  arguments: userInfo);
                           } catch (e) {
                             print(e.toString());
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(

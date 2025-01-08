@@ -1,9 +1,11 @@
 import 'package:delivery_app/constants.dart';
 import 'package:delivery_app/models/user_info_model.dart';
 import 'package:delivery_app/providers/userinfo_provider.dart';
+import 'package:delivery_app/screens/home_screen/widgets/navigatorBar.dart';
 import 'package:delivery_app/screens/info_personal/info_personal_screen.dart';
 import 'package:delivery_app/screens/register/widgets/register_button.dart';
 import 'package:delivery_app/screens/register/widgets/register_info_widget.dart';
+import 'package:delivery_app/screens/home_screen/home_screen.dart';
 import 'package:delivery_app/services/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -127,8 +129,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 // Navigator.of(context).pushNamedAndRemoveUntil(
                                 //     'Home Page', (route) => false);
                               ));
-                              Navigator.of(context).pushNamed(
-                                  InfoPersonalScreen.id,
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  Navigatorbar.id,
+                                 (route)=> false,
                                   arguments: userInfo);
                             } catch (e) {
                               print(e.toString());
@@ -156,12 +159,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> LoginMethod() async {
-   userInfo = await LoginService().loginService(
+    userInfo = await LoginService().loginService(
       phoneNumber: phoneNumber,
       password: password!,
     );
     isLouding = false;
-     Provider.of<UserinfoProvider>(context,listen: false).userInfoModel = userInfo;
+    Provider.of<UserinfoProvider>(context, listen: false).userInfoModel =
+        userInfo;
   }
 }
 

@@ -1,22 +1,12 @@
 import 'package:delivery_app/constants.dart';
 import 'package:delivery_app/models/product.dart';
+import 'package:delivery_app/providers/add_to_cart_provider.dart';
 import 'package:flutter/material.dart';
 
 class CartScreen extends StatefulWidget {
   CartScreen({super.key});
   static String id = "cart";
   static List<Product> products = [];
-  //  [
-  //   Product(
-  //     id: 1,
-  //     name: "pizza",
-  //     price: "4000.0",
-  //     description: "pizza cheeze",
-  //     storeId: 2,
-  //     image: "",
-  //     quantity: 10,
-  //   )
-  // ];
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -28,57 +18,159 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final provider = AddToCartProvider.of(context);
+    final finalList = provider.cart;
+    producerQuantity(IconData icon, int index) {
+      return GestureDetector(
+        onTap: () {
+          setState(
+            () {
+              icon == Icons.add
+                  ? provider.increamnt(index)
+                  : provider.decreamnt(index);
+            },
+          );
+        },
+        child: Icon(
+          icon,
+          size: 20,
+        ),
+      );
+    }
 
-    return (CartScreen.products.isEmpty)
+    return finalList.isEmpty
         ? Center(
             child: Text(
               "The cart is empty !",
-              style: TextStyle(color: Colors.grey, fontSize: 20),
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 20,
+              ),
             ),
           )
         : ListView.builder(
-            itemCount: CartScreen.products.length,
+            shrinkWrap: true,
+            itemCount: finalList.length,
             itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.all(16),
-                child: Card(
-                  color: Colors.blue,
-                  elevation: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
+              final cartItems = finalList[index];
+              return Padding(
+                padding: const EdgeInsets.all(13),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: 145),
+                  child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey.shade200,
+                    ),
+                    padding: EdgeInsets.all(13),
+                    child: Stack(
+                      clipBehavior: Clip.none,
                       children: [
-                        Icon(Icons.image),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                "${CartScreen.products[index].name}",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+                        Row(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.grey.withOpacity(0.3),
                               ),
-                              Text(
-                                "${CartScreen.products[index].price}",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 10),
+                              //padding: EdgeInsets.all(20),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.network(
+                                  cartItems.image!,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  // mainAxisAlignment:
+                                  //     MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    increamentButton(),
                                     Text(
-                                      "${itemCount}",
-                                      style: TextStyle(fontSize: 15),
+                                      "${cartItems.name}",
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                    decreamentButton(),
-                                    deleteCard(),
-                                  ])
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "${cartItems.price}",
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 10,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Positioned(
+                          top: 20,
+                          right: 5,
+                          child: Column(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  finalList.removeAt(index);
+                                  setState(() {});
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                  size: 20,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                height: 30,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Colors.grey.shade400, width: 2)),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    producerQuantity(Icons.add, index),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      cartItems.quantityToSend.toString(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    producerQuantity(Icons.remove, index),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -87,40 +179,8 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
               );
-            });
-  }
-
-  Widget deleteCard() {
-    return IconButton(
-        onPressed: () {
-          CartScreen.products.removeAt(0);
-        },
-        icon: Icon(Icons.delete));
-  }
-
-  Widget increamentButton() {
-    return MaterialButton(
-      shape: CircleBorder(),
-      onPressed: () {
-        setState(() {
-          itemCount++;
-        });
-      },
-      child: Icon(Icons.add),
-      color: Colors.white,
-    );
-  }
-
-  Widget decreamentButton() {
-    return MaterialButton(
-      shape: CircleBorder(),
-      onPressed: () {
-        setState(() {
-          itemCount--;
-        });
-      },
-      child: Center(child: Icon(Icons.minimize)),
-      color: Colors.white,
-    );
+            },
+          );
+          
   }
 }

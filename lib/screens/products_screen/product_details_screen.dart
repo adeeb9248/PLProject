@@ -1,6 +1,7 @@
 import 'package:delivery_app/constants.dart';
 import 'package:delivery_app/models/product.dart';
 import 'package:delivery_app/screens/cart_screen/cart_screen.dart';
+import 'package:delivery_app/screens/products_screen/widgets/addTo_cart_botton.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -11,8 +12,15 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(product.name ?? 'Product Name'),
+        title: Text(
+          product.name ?? 'Product Name',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),
+        ),
         backgroundColor: kPrimaryColor,
       ),
       body: SingleChildScrollView(
@@ -78,30 +86,9 @@ class ProductDetailsScreen extends StatelessWidget {
                 height: 20,
               ),
               // Add to Cart Button
-              Center(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: kPrimaryColor,
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    ),
-                    onPressed: () {
-                      // Add to Cart Logic
-                      CartScreen.products.add(product);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content: Text(
-                                'Added ${product.name ?? 'Product Name'} to cart')),
-                      );
-                    },
-                    child: const Text(
-                      'Add to Cart',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
+              AddtoCartBotton(
+                product: product,
+              )
             ],
           ),
         ),

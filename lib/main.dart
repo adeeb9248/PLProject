@@ -1,4 +1,5 @@
 import 'package:delivery_app/models/user_info_model.dart';
+import 'package:delivery_app/providers/add_to_cart_provider.dart';
 import 'package:delivery_app/providers/product_details_provider.dart';
 import 'package:delivery_app/providers/products_provider.dart';
 import 'package:delivery_app/providers/stores_provider.dart';
@@ -22,6 +23,7 @@ void main()  {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context)=>AddToCartProvider()),
         ChangeNotifierProvider(create: (context) => ProductDetailsProvider()),
         ChangeNotifierProvider(create: (context) => ProductsProvider()),
         ChangeNotifierProvider(create: (context) => StoresProvider()),

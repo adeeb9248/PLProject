@@ -160,6 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 80,
               height: 80,
               child: Card(
+                color: Colors.white,
                 margin: EdgeInsets.all(10),
                 child: Icon(
                   icon,
@@ -192,6 +193,9 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(20) ),
           height: 120,
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -221,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: const TextStyle(
                         color: Colors.black,
                         // fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                        fontSize: 13,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -230,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       vegetable.price ?? 'Product Price',
                       style: const TextStyle(
                         color: Colors.grey,
-                        fontSize: 15,
+                        fontSize: 10,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

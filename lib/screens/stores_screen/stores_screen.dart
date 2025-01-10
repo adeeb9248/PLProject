@@ -14,8 +14,13 @@ class StoresScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('$categoryName Stores'),
+        title: Text('$categoryName Stores',
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),),
         backgroundColor: kPrimaryColor,
       ),
       body: Padding(
@@ -68,7 +73,8 @@ class StoresScreen extends StatelessWidget {
   Widget _buildStoreCard(
       BuildContext context, int? storeId, String storeName,dynamic imageUrl) {
     return Card(
-      elevation: 10,
+      color: Colors.grey.shade200,
+      elevation: 3,
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: InkWell(
         onTap: () async {

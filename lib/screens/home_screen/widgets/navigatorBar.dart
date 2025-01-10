@@ -1,5 +1,6 @@
 import 'package:delivery_app/constants.dart';
 import 'package:delivery_app/screens/cart_screen/cart_screen.dart';
+import 'package:delivery_app/screens/cart_screen/widgets/checkout.dart';
 import 'package:delivery_app/screens/home_screen/home_screen.dart';
 import 'package:delivery_app/screens/info_personal/info_personal_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,21 +25,23 @@ class _NavigatorbarState extends State<Navigatorbar> {
       selectedIndex = index;
       print(index);
     });
-
-    // Navigator.pushAndRemoveUntil(
-    //     context,
-    //     MaterialPageRoute(builder: (context) => pages[index]),
-    //     (route) => false);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: selectedIndex==2?
+      Checkout():null
+      ,
+      backgroundColor: Colors.white,
       appBar: selectedIndex == 0
           ? AppBar(
               title: const Text(
                 'Home Page',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
               ),
               backgroundColor: kPrimaryColor,
             )

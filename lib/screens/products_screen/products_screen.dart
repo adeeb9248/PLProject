@@ -34,8 +34,15 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('$storeName Products'),
+        title: Text(
+          '$storeName Products',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),
+        ),
         backgroundColor: kPrimaryColor,
       ),
       body: Padding(
@@ -53,8 +60,9 @@ class ProductsScreen extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: 'Search products',
                     prefixIcon: IconButton(
-                      icon: const Icon(Icons.search), 
-                      onPressed: () => value.searchForProductAsync(value.searchController.text),
+                      icon: const Icon(Icons.search),
+                      onPressed: () => value
+                          .searchForProductAsync(value.searchController.text),
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -66,7 +74,7 @@ class ProductsScreen extends StatelessWidget {
               // List of Products
               Expanded(
                 child: ListView.builder(
-                  itemCount:  value.items.length,
+                  itemCount: value.items.length,
                   itemBuilder: (BuildContext context, int index) =>
                       _buildProductCard(context, value.items[index]),
                 ),
@@ -80,7 +88,8 @@ class ProductsScreen extends StatelessWidget {
 
   Widget _buildProductCard(BuildContext context, Product product) {
     return Card(
-      elevation: 10,
+      color: Colors.grey.shade200,
+      elevation: 3,
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: InkWell(
         onTap: () {
@@ -114,7 +123,7 @@ class ProductsScreen extends StatelessWidget {
                   product.name ?? "Product Name",
                   style: const TextStyle(
                     color: kPrimaryColor,
-                   // fontWeight: FontWeight.bold,
+                    // fontWeight: FontWeight.bold,
                     fontSize: 15,
                   ),
                   maxLines: 2,

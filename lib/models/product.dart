@@ -5,8 +5,8 @@ class Product {
   String? description;
   int? storeId;
   String? image;
-  int? quantity;
-
+  dynamic quantity;
+  dynamic quantityToSend = 1;
   Product(
       {this.id,
       this.name,

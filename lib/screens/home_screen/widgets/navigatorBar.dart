@@ -34,9 +34,9 @@ class _NavigatorbarState extends State<Navigatorbar> {
   Widget build(BuildContext context) {
     return Scaffold(
       
-      bottomSheet: selectedIndex==2?
-      Checkout():null
-      ,
+    //   bottomSheet: selectedIndex==2?
+    //   Checkout():null
+    //  ,
       backgroundColor: Colors.white,
       appBar: selectedIndex == 0
           ? AppBar(

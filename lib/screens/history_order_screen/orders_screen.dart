@@ -90,6 +90,7 @@ class OrdersScreen extends StatelessWidget {
             );
           } else {
             return Center(
+              // child: CircularProgressIndicator(),
               child: Text(
                 'No Orders Yet !',
                 style: TextStyle(

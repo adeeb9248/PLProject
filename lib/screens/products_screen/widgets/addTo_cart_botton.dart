@@ -17,25 +17,26 @@ class _AddtoCartBottonState extends State<AddtoCartBotton> {
     return Center(
       child: SizedBox(
         width: double.infinity,
-        height: 60,
+        height: 45,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            
             backgroundColor: kPrimaryColor,
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
           ),
           onPressed: () {
             // Add to Cart Logic
             provider.toogleFavorite(widget.product);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                  content: Text(
-                      'Added ${widget.product.name ?? 'Product Name'} to cart')),
+                duration: Durations.long3,
+                content: Text(
+                    'Added ${widget.product.name ?? 'Product Name'} to cart'),
+              ),
             );
           },
           child: const Text(
             'Add to Cart',
-            style: TextStyle(fontSize: 18, color: Colors.white),
+            style: TextStyle(fontSize: 15, color: Colors.white),
           ),
         ),
       ),

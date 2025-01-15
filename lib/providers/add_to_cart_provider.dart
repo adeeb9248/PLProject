@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddToCartProvider extends ChangeNotifier {
-  final List<Product> _cart = [];
+  List<Product> _cart = [];
   List<Product> get cart => _cart;
+  set cart(List<Product> cart) {
+    _cart = cart;
+    notifyListeners();
+  }
 
   void toogleFavorite(Product product) {
     if (_cart.contains(product)) {
@@ -34,9 +38,10 @@ class AddToCartProvider extends ChangeNotifier {
   totalPrice() {
     double myTotal = 0.0;
     for (Product element in _cart) {
-      double price= double.parse ( element.price!.trim().replaceAll("\$", ""));
-      myTotal += price  * element.quantityToSend;
+      double price = double.parse(element.price!.trim().replaceAll("\$", ""));
+      myTotal += price * element.quantityToSend;
     }
+    
     return myTotal;
   }
 

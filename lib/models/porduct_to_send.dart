@@ -1,6 +1,6 @@
 class ProductToSend {
   final String productId;
-  final String quantity;
+  final dynamic quantity;
 
   ProductToSend({required this.productId, required this.quantity});
 
@@ -13,8 +13,8 @@ class ProductToSend {
 
   Map<String, dynamic> toJson() {
     return {
-      'product_id': productId,
-      'quantity': quantity,
+      "product_id": productId,
+      "quantity": quantity,
     };
   }
 }

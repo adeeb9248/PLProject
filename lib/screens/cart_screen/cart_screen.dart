@@ -54,7 +54,7 @@ class _CartScreenState extends State<CartScreen> {
             itemBuilder: (context, index) {
               final cartItems = finalList[index];
               return Padding(
-                padding: const EdgeInsets.all(13),
+                padding: const EdgeInsets.all(10),
                 child: ConstrainedBox(
                   constraints: BoxConstraints(maxHeight: 145),
                   child: Container(
@@ -181,6 +181,5 @@ class _CartScreenState extends State<CartScreen> {
               );
             },
           );
-          
   }
 }

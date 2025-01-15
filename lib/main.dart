@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 
 //late SharedPreferences storage;
 void main()  {
-  WidgetsFlutterBinding.ensureInitialized;
+ // WidgetsFlutterBinding.ensureInitialized;
  // storage = await SharedPreferences.getInstance();
 
   runApp(

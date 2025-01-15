@@ -65,8 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.network(
-                'https://i.pinimg.com/736x/a9/63/1c/a9631c393aa4718a29fcf07ff81b2741.jpg'),
+            // Image.network(
+            //     'https://i.pinimg.com/736x/a9/63/1c/a9631c393aa4718a29fcf07ff81b2741.jpg'),
+            Image.asset('assets/home_screen.jpg'),
             const SizedBox(height: 20),
             const Text(
               'Category :',
@@ -160,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 80,
               height: 80,
               child: Card(
-                color: Colors.white,
+                color: Colors.grey.shade200,
                 margin: EdgeInsets.all(10),
                 child: Icon(
                   icon,
@@ -171,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 2),
             Text(categoryName,
                 style: const TextStyle(
-                  fontSize: 12,
+                  fontSize: 10,
                 )),
           ],
         ),
@@ -194,8 +195,8 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(20) ),
+              color: Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(20)),
           height: 120,
           padding: const EdgeInsets.all(8.0),
           child: Row(

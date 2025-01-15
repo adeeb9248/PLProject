@@ -124,6 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(
+                                duration: Durations.long3,
                                 content: Text('Login success!'),
                                 backgroundColor: kPrimaryColor,
                                 // Navigator.of(context).pushNamedAndRemoveUntil(

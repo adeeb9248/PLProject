@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  String baseURL = 'http://192.168.77.239:8000/api';
+  String baseURL = 'http://192.168.35.239:8000/api';
+  String image = 'http://192.168.35.239:8000/storage/images/';
 
   Future<dynamic> get({required String url, @required String? token}) async {
     Map<String, String> headers = {};
@@ -37,7 +38,11 @@ class Api {
       @required String? token}) async {
     Map<String, String> headers = {};
     if (token != null) {
-      headers.addAll({'Authorization': 'Bearer $token'});
+      headers.addAll({
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      });
     }
 
     http.Response response = await http.post(

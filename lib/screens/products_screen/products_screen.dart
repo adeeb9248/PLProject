@@ -36,6 +36,7 @@ class ProductsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           '$storeName Products',
           style: TextStyle(

@@ -166,6 +166,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             await RegisterMethod(country: country);
                             print('succesful');
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                               duration: Durations.long3,
                               content: Text('register success!'),
                               backgroundColor: kPrimaryColor,
                             ));
@@ -176,6 +177,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           } catch (e) {
                             print(e.toString());
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                               duration: Durations.long3,
                               content: Text('Please Try Again!'),
                               backgroundColor: Colors.red,
                             ));

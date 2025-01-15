@@ -14,6 +14,7 @@ class ProductDetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           product.name ?? 'Product Name',
           style: TextStyle(
@@ -46,7 +47,7 @@ class ProductDetailsScreen extends StatelessWidget {
               Text(
                 product.name ?? 'Product Name',
                 style: const TextStyle(
-                  fontSize: 24,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: kPrimaryColor,
                 ),
@@ -56,14 +57,14 @@ class ProductDetailsScreen extends StatelessWidget {
               Text(
                 'price : ',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 17,
                   color: Colors.grey,
                 ),
               ),
               Text(
                 '${product.price}' ?? '\$\$',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 13,
                 ),
               ),
               const SizedBox(height: 12),
@@ -71,14 +72,14 @@ class ProductDetailsScreen extends StatelessWidget {
               Text(
                 'description : ',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 17,
                   color: Colors.grey,
                 ),
               ),
               Text(
                 product.description ?? 'Product description',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 13,
                   color: Colors.grey[800],
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'package:delivery_app/constants.dart';
 import 'package:delivery_app/screens/cart_screen/cart_screen.dart';
 import 'package:delivery_app/screens/cart_screen/widgets/checkout.dart';
+import 'package:delivery_app/screens/history_order_screen/orders_screen.dart';
 import 'package:delivery_app/screens/home_screen/home_screen.dart';
 import 'package:delivery_app/screens/info_personal/info_personal_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class _NavigatorbarState extends State<Navigatorbar> {
     HomeScreen(),
     InfoPersonalScreen(),
     CartScreen(),
+    OrdersScreen()
+    
   ];
 
   void onItemTapped(int index) {
@@ -30,6 +33,7 @@ class _NavigatorbarState extends State<Navigatorbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       bottomSheet: selectedIndex==2?
       Checkout():null
       ,
@@ -45,9 +49,9 @@ class _NavigatorbarState extends State<Navigatorbar> {
               ),
               backgroundColor: kPrimaryColor,
             )
-          : selectedIndex == 1
-              ? null
-              : AppBar(
+          : selectedIndex == 2
+              ? 
+               AppBar(
                   iconTheme: IconThemeData(color: Colors.white),
                   backgroundColor: kPrimaryColor,
                   centerTitle: true,
@@ -55,7 +59,18 @@ class _NavigatorbarState extends State<Navigatorbar> {
                     "M Y  C A R T",
                     style: TextStyle(color: Colors.white),
                   ),
+                ):selectedIndex==3?
+                
+                AppBar(
+              title: const Text(
+                'History Order',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
                 ),
+              ),
+              backgroundColor: kPrimaryColor,
+            ):null ,
       body: IndexedStack(
         index: selectedIndex,
         children: pages,
@@ -63,12 +78,12 @@ class _NavigatorbarState extends State<Navigatorbar> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: onItemTapped,
         currentIndex: selectedIndex,
-        backgroundColor: kPrimaryColor,
+        backgroundColor:Colors.white ,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: kPrimaryColor,
         iconSize: 23,
         selectedFontSize: 18,
-        unselectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(
@@ -86,6 +101,11 @@ class _NavigatorbarState extends State<Navigatorbar> {
                 Icons.shopping_cart,
               ),
               label: 'cart'),
+BottomNavigationBarItem(
+              icon: Icon(
+                Icons.inventory,
+              ),
+              label: 'orders'),
         ],
       ),
     );

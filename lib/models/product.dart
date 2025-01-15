@@ -7,14 +7,17 @@ class Product {
   String? image;
   dynamic quantity;
   dynamic quantityToSend = 1;
-  Product(
-      {this.id,
-      this.name,
-      this.price,
-      this.description,
-      this.storeId,
-      this.image,
-      this.quantity});
+  String? updated_at;
+  Product({
+    this.id,
+    this.name,
+    this.price,
+    this.description,
+    this.storeId,
+    this.image,
+    this.quantity,
+    this.updated_at
+  });
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -24,8 +27,9 @@ class Product {
     storeId = json['store_id'];
     image = json['image'];
     quantity = json['quantity'];
+    updated_at=json['updated_at'];
   }
-
+//top3
   Product.fromJson2(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
